@@ -11,4 +11,5 @@ Technical Details
 - Python
 - Keras (CNN Deep Neural Nets)
 - Web Design: HTML/CSS/JS, Figma
-- OpenCV 
+- OpenCV
+- Webcam Data: getUserMedia API
