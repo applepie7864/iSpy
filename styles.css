@@ -41,6 +41,14 @@ body {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#webcam {
+    width: 85vw;
+    height: 55vh;
+    transform: scaleX(-1);
 }
 .bottom-strip {
     display: flex;

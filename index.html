@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ASLingo: American Sign Language Translator / Recognition System</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/css?family=Jura&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Titan+One&display=swap" rel="stylesheet" />
@@ -12,9 +16,24 @@
             <span class="title">ASLingo&nbsp;</span>
             <span class="material-symbols-outlined" id="symbol">volunteer_activism</span>
         </div>
-        <div class="center-box"></div>
+        <div class="center-box">
+            <video autoplay="true" id="webcam"></video>
+        </div>
         <div class="bottom-strip">
             <span class="copyright">&copy; Made by Rosanne & Annie</span>
         </div>
+
+        <script>
+            let video = document.querySelector('#webcam')
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia( { video: true }).then(function (stream) {
+                    video.srcObject = stream;
+                }).catch(function (error) {
+                    console.log("Error: Something went wrong")
+                })
+            } else {
+                console.log("Error: Unable to retrieve webcam data, getUserMedia unsupported");
+            }
+        </script>
     </body>
 </html> 
