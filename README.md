@@ -1,15 +1,16 @@
-# ASLingo
+# iSpy
 Project Outline: 
 
 Idea
-- A website that implements a webcam with a live recognition system that translates American Sign Language hand gestures to American English. 
-- 
+- A site that implements a webcam with a live facial recognition system to help detect individuals in a database. 
+
 Motivation
-- Implementing this application into educational systems can help students with hearing disabilities communicate with their teachers and classmates.This application can also be used in emergency situations when those with hearing impairments need to communicate with first-aid responders. Although responders may learn basic American Sign Language, not all are fluent and many may have trouble answering in stressful moments. Improvements in computer recognition software could help marginalized groups and potentially save lives. 
+- In security, the implementation of this application into surveillance cameras will allow us to find wanted criminals or missing persons. In addition, it can be used to warn children who stay home by themselves, when to answer the door for guests, depending on whether or not their face is recognized as a known individual. It will also aid us in simplifying attendance procedures, reducing the time it takes away from learning in the classroom. By adding the pictures of people to be found in a database, we can more easily identify targeted individuals.
 
 Technical Details
 - Python
 - Keras (CNN Deep Neural Nets)
 - Web Design: HTML/CSS/JS, Figma
-- OpenCV
+- OpenCV 
 - Webcam Data: getUserMedia API
+
