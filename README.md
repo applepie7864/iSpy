@@ -13,4 +13,4 @@ Technical Details
 - Web Design: HTML/CSS/JS, Figma
 - OpenCV 
 - Webcam Data: getUserMedia API
-
+- Git, Github
