@@ -14,3 +14,5 @@ Technical Details
 - OpenCV 
 - Webcam Data: getUserMedia API
 - Git, Github
+- PHP
+- MySQL
