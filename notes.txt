@@ -1,0 +1,12 @@
+Process:
+1) start at top left of picture and move in blocks
+2) run classifier tests on each block to identify
+3) to increase efficiency, we create cascades which
+   are stages of tests that increase with precision
+   (a block must pass all stages)
+ 
+Note: A cascade are a collection of XML files containing
+      opencv data. You initialize the code to the cascade
+      you want and it does all the detection work
+
+Creating a Custom Cascade:
