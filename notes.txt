@@ -1,3 +1,30 @@
+Basic Information, Learning Points:
+- The smallest element of an image is called a pixel
+- Each pixel is represented numerically through RGB or grayscale
+- In the grayscale model, each pixel holds a single value representing
+  the amount/intesity of light
+- Features of an image are derived from pixel patterns, such as edges,
+  corners and shapes. 
+- When we have a large collection of these features, we can
+  begin to identify things and solve tasks.
+- Dark regions will have a smaller pixel sum than lighter regions
+- There are 4 Haar-like features:
+  a) 2 vertical rectangles (edges)
+  b) 2 horizontal rectangles (edges)
+  c) A centered rectangle (lines)
+  d) Diagonal feature with 4 rectangles (diagonals)
+- Integral images are used to efficiently calculate the sum
+  of pixels in an area
+- Boosting is a machine learning algorithm where classifiers
+  that perform well are given greater consideration/importance or 
+  a higher weight. 
+
+Viola-Jones General Object Detection Framework:
+1. Select Haar-like features
+2. Create an intergral image
+3. Run AdaBoost Training
+4. Create classifier cascades
+
 Process:
 1) start at top left of picture and move in blocks
 2) run classifier tests on each block to identify
@@ -10,3 +37,8 @@ Note: A cascade are a collection of XML files containing
       you want and it does all the detection work
 
 Creating a Custom Cascade:
+- create folders [data, for your trained classifiers]
+                 [neg, does not contain object of interest]
+                 [pos, contains object of interest]
+                 [src, for python modules]
+                 [val, for validation images]
