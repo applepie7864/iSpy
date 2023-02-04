@@ -2,8 +2,7 @@ import cv2
 import sys
 
 # implementing a face cascade
-cascPath = sys.argv[1]
-faceCascade = cv2.CascadeClassifier(cascPath) # edit: add custom cascade file here
+faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml') 
 
 # sets video source to default webcam
 video_capture = cv2.VideoCapture(0)
@@ -23,7 +22,7 @@ while True:
         scaleFactor=1.1,
         minNeighbors=5, 
         minSize=(30, 30),
-        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+        flags=cv2.CASCADE_SCALE_IMAGE
     )
 
     # Draw a rectangle on indentified faces given the coordinates onto frame
