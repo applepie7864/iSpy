@@ -34,7 +34,8 @@ Process:
  
 Note: A cascade are a collection of XML files containing
       opencv data. You initialize the code to the cascade
-      you want and it does all the detection work
+      you want and it does all the detection work. It is
+      basically telling OpenCV what to look for in images.
 
 Creating a Custom Cascade:
 - create folders [data, for your trained classifiers]
