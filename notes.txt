@@ -1,4 +1,13 @@
-Basic Information, Learning Points:
+Python Virtual Environment Commands:
+Create: python3 -m venv ./venv (done)
+Activate: source venv/bin/activate
+Deactivate: deactivate
+
+Installations (connect to venv first):
+pip3 install numpy
+pip3 install opencv-python
+
+Research:
 - The smallest element of an image is called a pixel
 - Each pixel is represented numerically through RGB or grayscale
 - In the grayscale model, each pixel holds a single value representing
@@ -43,3 +52,10 @@ Creating a Custom Cascade:
                  [pos, contains object of interest]
                  [src, for python modules]
                  [val, for validation images]
+
+Clarifying the Difference between Haar Cascades and Convolutional Neural Nets:
+Haar cascades are mostly for the detection of eyes, face, body. Its more of machine learning concept and not very accurate.
+CNN or convolutional neural nets are newer and a deep learning approach which can take in an input image, 
+assign importance (learnable weights and biases) to various aspects/objects in the image, and be able to differentiate
+one from the other. CNN are more accurate and more tools have already been built to form them. (i.e. Teachable Machine)
+
