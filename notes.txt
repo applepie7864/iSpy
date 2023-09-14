@@ -4,6 +4,7 @@ Activate: source venv/bin/activate
 Deactivate: deactivate
 
 Installations (connect to venv first):
+The version of Python we are using is Python 3.11
 pip3 install numpy
 pip3 install opencv-python
 
@@ -12,6 +13,10 @@ git fetch origin main
 git merge origin/main
 * resolve highlighted conflicts
 git add, commit, push
+
+Running the Program:
+python3 face_detect.py
+Press the "ESC" key to exit
 
 Research:
 - The smallest element of an image is called a pixel
