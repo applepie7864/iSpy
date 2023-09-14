@@ -7,6 +7,12 @@ Installations (connect to venv first):
 pip3 install numpy
 pip3 install opencv-python
 
+Solving Git Conflicts:
+git fetch origin main
+git merge origin/main
+* resolve highlighted conflicts
+git add, commit, push
+
 Research:
 - The smallest element of an image is called a pixel
 - Each pixel is represented numerically through RGB or grayscale
