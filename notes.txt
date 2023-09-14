@@ -18,6 +18,11 @@ Running the Program:
 python3 face_detect.py
 Press the "ESC" key to exit
 
+How it Works:
+The first step we need to take in order to recognize an individual is to
+know when we are working with a face (facial detection). To do this we will be using
+a pre-trained frontal face HAAR Cascade Classifier supplied by OpenCV.
+
 Research:
 - The smallest element of an image is called a pixel
 - Each pixel is represented numerically through RGB or grayscale
@@ -56,13 +61,6 @@ Note: A cascade are a collection of XML files containing
       opencv data. You initialize the code to the cascade
       you want and it does all the detection work. It is
       basically telling OpenCV what to look for in images.
-
-Creating a Custom Cascade:
-- create folders [data, for your trained classifiers]
-                 [neg, does not contain object of interest]
-                 [pos, contains object of interest]
-                 [src, for python modules]
-                 [val, for validation images]
 
 Clarifying the Difference between Haar Cascades and Convolutional Neural Nets:
 Haar cascades are mostly for the detection of eyes, face, body. Its more of machine learning concept and not very accurate.
