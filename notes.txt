@@ -3,11 +3,12 @@ Create: python3 -m venv ./venv (done)
 Activate: source venv/bin/activate
 Deactivate: deactivate
 
-Installations (connect to venv first):
+Installations (connect to venv first and execute in venv):
 The version of Python we are using is Python 3.11
 pip3 install numpy
 pip3 install opencv-python
-pip3 install Pillow
+pip3 install opencv-contrib-python
+pip3 install pillow
 
 Solving Git Conflicts:
 git fetch origin main
