@@ -20,6 +20,9 @@ Running the Program:
 python3 face_detect.py
 Press the "ESC" key to exit
 
+Training the Model on a new dataset:
+python3 training_script.py
+
 How it Works:
 The first step we need to take in order to recognize an individual is to
 know when we are working with a face (facial detection). To do this we will be using

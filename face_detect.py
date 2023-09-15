@@ -1,5 +1,14 @@
 import numpy as np
 import cv2
+import os
+
+# define which recognizer algorithm we will use and the trained model we are using
+model = cv2.face.LBPHFaceRecognizer_create()
+model.read('./trainer.yml')
+
+# define the people in dataset in order of their id, right now we only have bill
+people = ["Bill"]
+id = 0
 
 # load the base classifier
 faceCascade = cv2.CascadeClassifier('venv/lib/python3.11/site-packages/cv2/data/haarcascade_frontalface_default.xml')
@@ -15,7 +24,7 @@ while True:
     # detect objects based on supplied cascade and save as an array of faces
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(
-        frame,     
+        gray,     
         scaleFactor=1.2,
         minNeighbors=5,     
         minSize=(20, 20)
@@ -24,7 +33,24 @@ while True:
     # draw a rectangle around each detected face from the frame
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2) 
-        cv2.imshow('iSpy', frame) # display
+        id, confidence = model.predict(gray[y: y + h, x: x + w])
+        print(confidence)
+        if (confidence < 30): # define a threshold, 0 is perfect match
+            id = people[id]
+        else:
+            id = "unknown"
+
+        # display detected name
+        cv2.putText(frame, 
+                    str(id), 
+                    (x + 5, y - 5), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 
+                    1, 
+                    (0, 255, 0), 
+                    2
+                   )
+        
+        cv2.imshow('iSpy', frame) # display frame
     
     # press 'ESC' to quit
     key = cv2.waitKey(30) & 0xff
