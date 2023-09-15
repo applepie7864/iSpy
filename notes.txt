@@ -7,6 +7,7 @@ Installations (connect to venv first):
 The version of Python we are using is Python 3.11
 pip3 install numpy
 pip3 install opencv-python
+pip3 install Pillow
 
 Solving Git Conflicts:
 git fetch origin main
@@ -22,6 +23,8 @@ How it Works:
 The first step we need to take in order to recognize an individual is to
 know when we are working with a face (facial detection). To do this we will be using
 a pre-trained frontal face HAAR Cascade Classifier supplied by OpenCV.
+Now to build on top of this base and not only recognize a face but an individual, we must gather our own dataset
+of the person to be identified. Using this dataset we will train our recognizer using the LBPH algorithm.
 
 Research:
 - The smallest element of an image is called a pixel
