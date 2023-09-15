@@ -68,3 +68,32 @@ CNN or convolutional neural nets are newer and a deep learning approach which ca
 assign importance (learnable weights and biases) to various aspects/objects in the image, and be able to differentiate
 one from the other. CNN are more accurate and more tools have already been built to form them. (i.e. Teachable Machine)
 
+Local Binary Pattern (we can code this ourselves later, for now we use the OpenCV implementation):
+- LBPH an operator which labels the pixels of an image as a binary number based on neighbouring pixels
+- The operator is determined by two measures: local spatial patterns and grayscale contrast
+- Looks at 9 pixels at a time and turns it into a single value
+- Start by comparing the central pixel with the neighbouring pixels grayscale value
+- If the neighbouring pixel is greater than or equal to the central pixel assign 1 to the neighbouring pixel, else assign 0
+- Combine assigned values of the 8 neighbouring pixels together to generate a binary number in any ordering which corresponds to a decimal number for the central pixel, do this for every pixel but with consistent order
+- This is good because if the lighting is different, for example, while the values on the grayscale will differ, their relative differences will be the same 
+- We can also detect edges with this process. When we transition from a 0 to 1, there is an edge.
+- When we have enough decimal values we can combine this with a histogram to measure the frequency of each value
+- To start, we divide the resulting LBP image into grids (let's say we split it into an 8 x 8 grid) and create a histogram for each grid
+- The possible values for each pixel after LBP is still 0 to 255, so for each grid we will have 256 positions for the histogram
+- Then, we concatenate all the histograms for each grid to represent our image and process it for recognition (in our case, our histogram should have 8 x 8 x 256 positions in the final histogram)
+- To compare the 2 images, we compare their corresponding histograms using a simple euclidean distance calculation outlined below
+hist1 = [... LBP values ...]
+hist2 = [... LBP values ...]
+dist = 0
+for i in range(len(hist1)):
+  dist += pow(hist1[i] - hist2[i])
+dist = sqrt(dist)
+- The closest histogram wins and also the distance can be used as a "confidence measurement"
+- We can then define a threshold for which the confidence measurement must reach and if it is reached, we have successfully recognized a face
+
+
+
+
+
+
+
