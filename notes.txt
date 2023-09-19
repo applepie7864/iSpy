@@ -8,7 +8,7 @@ The version of Python we are using is Python 3.11
 pip3 install numpy
 pip3 install opencv-python
 pip3 install opencv-contrib-python
-pip3 install pillow
+pip3 install flask
 
 Solving Git Conflicts:
 git fetch origin main
@@ -98,8 +98,12 @@ dist = sqrt(dist)
 - The closest histogram wins and also the distance can be used as a "confidence measurement"
 - We can then define a threshold for which the confidence measurement must reach and if it is reached, we have successfully recognized a face
 
-
-
+Plan:
+Sep 21 - Edit training and face_detect script so that it updates for all files in db
+Sep 22 - Finish Flask uploads section, user input name + multiple jpg files, store in dataset/name
+Sep 23 - if input name already exists, tell the user and then proceed to run the training / detection scripts
+Sep 24 - figure out how to integrate opencv webcam into flask application
+Sep 25 - Make the frontend pretty
 
 
 
