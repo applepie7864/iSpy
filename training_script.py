@@ -17,25 +17,26 @@ def getData(dataset):
     ids = []
 
     # make list of paths to all images in the dataset
-    image_paths = []
+    image_paths_dict = {}
+    count = 0
     for person in os.listdir(dataset):
+        name_parts = person.split("-")
+        formatted_name = " ".join(part.capitalize() for part in name_parts)
         person_directory = os.path.join(dataset, person)
         for img in os.listdir(person_directory):
             image_path = os.path.join(person_directory, img)
-            image_paths.append(image_path)
+            image_paths_dict[image_path] = count
+        count += 1
     
     # edit images for training
-    for image in image_paths:
+    for image, num in image_paths_dict.items():
         grayscale_img = Image.open(image).convert('L') # convert to grayscale
         numpy_img = np.array(grayscale_img, 'uint8') # convert to numpy array
-
-        id = 0 # hardcoded for now, 0 corresponds to bill gates, change later ***
         faces = faceCascade.detectMultiScale(numpy_img) # detect faces
-
         # extract faces and corresponding label
         for (x, y, w, h) in faces:
             face_samples.append(numpy_img[y: y + h, x: x + w])
-            ids.append(id)
+            ids.append(num)
 
     return face_samples, ids
 

@@ -6,9 +6,8 @@ import os
 model = cv2.face.LBPHFaceRecognizer_create()
 model.read('./trainer.yml')
 
-# define the people in dataset in order of their id, right now we only have bill
-people = ["Bill"]
-id = 0
+# define the people in dataset in order with their id
+people = {0 : "Bill"} # in app.py, when person is added in the form, somehow edit this dictionary
 
 # load the base classifier
 faceCascade = cv2.CascadeClassifier('venv/lib/python3.11/site-packages/cv2/data/haarcascade_frontalface_default.xml')
@@ -35,7 +34,7 @@ while True:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2) 
         id, confidence = model.predict(gray[y: y + h, x: x + w])
         print(confidence)
-        if (confidence < 30): # define a threshold, 0 is perfect match
+        if (confidence < 35): # define a threshold, 0 is perfect match
             id = people[id]
         else:
             id = "unknown"
