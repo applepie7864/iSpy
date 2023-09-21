@@ -1,17 +1,49 @@
 import os
 from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
+import subprocess
 
-app = Flask(__name__) # create an app instance of Flask app
+app = Flask(__name__) # create instance
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16MB is the max file size
 
-app.secret_key = os.random(12) # set a secret key for the Flask application
+# Get path to database
+path = os.getcwd()
+database = os.path.join(path, 'dataset')
 
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # define max file size
+# Allowed image extensions, add more later
+ALLOWED_EXTENSIONS = set(['jpg'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-path = os.getcwd() # get current working directory
+@app.route('/')
+def index():
+    return open('index.html').read()
 
-uploaded_folder = os.path.join(path, 'dataset/test') # store uploaded videos here, edit later
+@app.route('/', methods=['POST'])
+def process_form():
+    # make folder for new person if dne
+    fname = request.form['first-name'].replace(" ", "").lower()
+    lname = request.form['last-name'].replace(" ", "").lower()
+    full_name = fname + "-" + lname
+    destination_folder = os.path.join(database, full_name)
+    if not os.path.isdir(destination_folder):
+        os.mkdir(destination_folder)
+    app.config['UPLOAD_FOLDER'] = destination_folder
 
-os.mkdir(uploaded_folder) # create uploaded_folder path
+    # add files to folder
+    files = request.files.getlist('files[]')
+    for file in files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename) # clean the filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-app.config['UPLOAD_FOLDER'] = uploaded_folder # edit config path
+    # train with newly loaded data
+    subprocess.run(['python3', 'training_script.py'])
+
+    # detect faces
+    subprocess.run(['python3', 'face_detect.py'])
+
+    return redirect('/')
+
+if __name__ == "__main__":
+    app.run()

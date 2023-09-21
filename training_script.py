@@ -3,8 +3,11 @@ import numpy as np
 from PIL import Image
 import os
 
+# people dictionary
+people = {}
+
 # path to database
-path = 'dataset'
+path = './dataset'
 
 # define which recognizer algorithm we will use
 model = cv2.face.LBPHFaceRecognizer_create()
@@ -22,6 +25,7 @@ def getData(dataset):
     for person in os.listdir(dataset):
         name_parts = person.split("-")
         formatted_name = " ".join(part.capitalize() for part in name_parts)
+        people[count] = formatted_name
         person_directory = os.path.join(dataset, person)
         for img in os.listdir(person_directory):
             image_path = os.path.join(person_directory, img)
@@ -37,6 +41,11 @@ def getData(dataset):
         for (x, y, w, h) in faces:
             face_samples.append(numpy_img[y: y + h, x: x + w])
             ids.append(num)
+    
+    # open file for kv pairs / edit to make more efficient later
+    with open("./pairs.txt", 'w') as f:
+        for key, value in people.items():
+            f.write(f'{key}: {value}\n')
 
     return face_samples, ids
 

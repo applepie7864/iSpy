@@ -99,11 +99,11 @@ dist = sqrt(dist)
 - We can then define a threshold for which the confidence measurement must reach and if it is reached, we have successfully recognized a face
 
 Plan:
-Sep 21 - Edit training and face_detect script so that it updates for all files in db
 Sep 22 - Finish Flask uploads section, user input name + multiple jpg files, store in dataset/name
 Sep 23 - if input name already exists, tell the user and then proceed to run the training / detection scripts
 Sep 24 - figure out how to integrate opencv webcam into flask application
 Sep 25 - Make the frontend pretty
+Sep 26 - AWS S3 connection?
 
 
 
