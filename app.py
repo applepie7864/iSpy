@@ -1,9 +1,12 @@
 import os
-from flask import Flask, flash, request, redirect, render_template
+from flask import Flask, request, redirect, render_template
 from werkzeug.utils import secure_filename
 import subprocess
+import numpy as np
+import cv2
 
-app = Flask(__name__) # create instance
+app = Flask(__name__, template_folder='templates', static_folder='static') # create instance
+app.config['SECRET_KEY'] = '12345'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16MB is the max file size
 
 # Get path to database
@@ -17,9 +20,9 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return open('index.html').read()
+    return render_template('index.html')
 
-@app.route('/', methods=['POST'])
+@app.route('/train', methods=['GET', 'POST'])
 def process_form():
     # make folder for new person if dne
     fname = request.form['first-name'].replace(" ", "").lower()
@@ -43,7 +46,11 @@ def process_form():
     # detect faces
     subprocess.run(['python3', 'face_detect.py'])
 
+    # cleaning files
+    os.remove("pairs.txt")
+    os.remove("trainer.yml")
+
     return redirect('/')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

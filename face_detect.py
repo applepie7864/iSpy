@@ -55,7 +55,7 @@ while True:
                     2
                    )
         
-        cv2.imshow('iSpy', frame) # display frame
+    cv2.imshow('iSpy', frame) # display frame
     
     # press 'ESC' to quit
     key = cv2.waitKey(30) & 0xff

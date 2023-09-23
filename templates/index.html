@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css" type="text/css">
+    <title>iSpy</title>
+</head>
+<body>
+        <div class="form1">
+            <h2>Train & Detect</h2>
+            <p>Select file(s) to upload:</p>
+            <form method="post" action="/train" enctype="multipart/form-data" onsubmit="train()">
+                <input type="text" name="first-name" placeholder="First Name" id="first-name" autocomplete="off" required>
+                <input type="text" name="last-name" placeholder="Last Name" id="last-name" autocomplete="off" required>
+                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
+                <input type="submit" value="Train">
+            </form>
+            <p class="show">Training ... </p>
+        </div>
+        <script src="../static/script.js"></script>
+</body>
+</html>
