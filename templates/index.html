@@ -4,20 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/styles.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <title>iSpy</title>
+    <script>
+        function training() {
+            console.log("training");
+            const show = document.getElementById("show");
+            show.style.display = "block";
+        }
+    </script>
 </head>
 <body>
-        <div class="form1">
-            <h2>Train & Detect</h2>
-            <p>Select file(s) to upload:</p>
-            <form method="post" action="/train" enctype="multipart/form-data" onsubmit="train()">
-                <input type="text" name="first-name" placeholder="First Name" id="first-name" autocomplete="off" required>
-                <input type="text" name="last-name" placeholder="Last Name" id="last-name" autocomplete="off" required>
-                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
-                <input type="submit" value="Train">
-            </form>
-            <p class="show">Training ... </p>
+    <div class="outer-wrapper animate__animated animate__pulse">
+        <div class="inner-wrapper">
+            <div class="text-container">
+                    <div class="header">About</div>
+                    <div class="subheader">
+                        iSpy is a facial recognition system integrated within a live
+                        webcam that detects individuals in a database. To use this application,
+                        upload a few jpg files of the person you would like to detect along with their name.
+                        More pictures are recommended for increased accuracy. Then, train your model
+                        and await the results! To exit the program, press the escape key.
+                    </div>
+                    <img src="../static/image.jpeg" alt="img" class="image">
+            </div>
+            <div class="form1">
+                <h2 class="title">iSpy</h2>
+                <p class="select">Select file(s) to upload:</p>
+                <form method="post" action="/" enctype="multipart/form-data" onsubmit="training()">
+                    <input type="text" name="first-name" placeholder="First Name" id="first-name" autocomplete="off" required>
+                    <input type="text" name="last-name" placeholder="Last Name" id="last-name" autocomplete="off" required>
+                    <input type="file" name="files[]" multiple="true" autocomplete="off" id="file" required>
+                    <input type="submit" value="Train!" id="train">
+                </form>
+                <p id="show">Training ... </p>
+            </div>
         </div>
-        <script src="../static/script.js"></script>
+    </div>
 </body>
 </html>

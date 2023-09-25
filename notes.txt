@@ -17,11 +17,8 @@ git merge origin/main
 git add, commit, push
 
 Running the Program:
-python3 face_detect.py
+python3 app.py
 Press the "ESC" key to exit
-
-Training the Model on a new dataset:
-python3 training_script.py
 
 How it Works:
 The first step we need to take in order to recognize an individual is to
@@ -98,12 +95,6 @@ dist = sqrt(dist)
 - The closest histogram wins and also the distance can be used as a "confidence measurement"
 - We can then define a threshold for which the confidence measurement must reach and if it is reached, we have successfully recognized a face
 
-Plan:
-Sep 22 - Finish Flask uploads section, user input name + multiple jpg files, store in dataset/name
-Sep 23 - if input name already exists, tell the user and then proceed to run the training / detection scripts
-Sep 24 - figure out how to integrate opencv webcam into flask application
-Sep 25 - Make the frontend pretty
-Sep 26 - AWS S3 connection?
 
 
 

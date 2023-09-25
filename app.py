@@ -22,7 +22,7 @@ def allowed_file(filename):
 def index():
     return render_template('index.html')
 
-@app.route('/train', methods=['GET', 'POST'])
+@app.route('/', methods=['POST'])
 def process_form():
     # make folder for new person if dne
     fname = request.form['first-name'].replace(" ", "").lower()
@@ -45,10 +45,6 @@ def process_form():
 
     # detect faces
     subprocess.run(['python3', 'face_detect.py'])
-
-    # cleaning files
-    os.remove("pairs.txt")
-    os.remove("trainer.yml")
 
     return redirect('/')
 
