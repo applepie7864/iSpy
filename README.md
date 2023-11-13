@@ -20,7 +20,7 @@ This project is a home security system that utilizes AI-based face recognition t
 
 
 ## Features
-**Face Recognition: ** The system employs face recognition algorithms to identify and authenticate users.
+**Face Recognition:** The system employs face recognition algorithms to identify and authenticate users.
 **User Database: **Authorized users' facial features are stored securely in a database for comparison during access attempts.
 **Real-time Monitoring: **The system provides real-time monitoring, alerting homeowners of recognized and unrecognized individuals attempting access.
 
