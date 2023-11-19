@@ -61,7 +61,6 @@ svg path {
 .navBar {
   width: 100vw;
   height: 75px;
-  background: var(--bg-color);
   padding: 0 3rem;
   display: flex;
   flex-direction: row;
@@ -71,6 +70,7 @@ svg path {
   top: 0px;
   left: 0px;
   box-shadow: var(--grey-color) 0px 1px 15px;
+  background: var(--bg-color);
 }
 
 .right {
@@ -88,6 +88,7 @@ svg path {
   justify-content: center;
   gap: 2rem;
   margin-top: 5rem;
+  margin-bottom: 3rem;
 }
 
 .line {
