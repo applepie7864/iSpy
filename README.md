@@ -32,7 +32,7 @@ Before you begin, ensure you have met the following requirements:
 - [Python](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/) installed for the backend.
 
 ## Project Architecture 
-to be added
+to be added!
 
 ## Getting Started
 
