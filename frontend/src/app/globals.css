@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --regular-font-size: 15px;
+  --regular-font-family: 'Helvetica', sans-serif;
+  --font-color: black;
+  --bg-color: white;
+  --accent-color: #BA8828
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --font-color: white;
+    --bg-color: black;
+    --accent-color: #BA8828
+  }
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: var(--regular-font-size);
+  font-family: var(--regular-font-family);
+  color: var(--font-color);
+  background: var(--bg-color);
+}
+
+svg path {
+  fill: var(--font-color);
+  stroke: var(--font-color);
+}
+
+.logo svg {
+  width: 35px;
+  height: 35px;
+}
+
+.modeBtn svg {
+  width: 35px;
+  height: 35px;
+}
+
+.navBar {
+  width: 100vw;
+  height: 100px;
+  padding: 0 3rem;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+}
