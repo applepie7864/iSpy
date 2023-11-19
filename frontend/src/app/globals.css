@@ -22,6 +22,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  border: 1px solid white;
 }
 
 body {
@@ -50,7 +51,6 @@ svg path {
   width: 100vw;
   height: 100px;
   padding: 0 3rem;
-  border: 1px solid white;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -66,4 +66,20 @@ svg path {
   align-items: center;
   justify-content: center;
   gap: 5rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 10rem;
+  margin-bottom: 2rem;
+}
+
+.line {
+  width: 90vw;
+  height: 1px;
+  color: var(--font-color);
 }
