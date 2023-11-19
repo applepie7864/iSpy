@@ -5,8 +5,10 @@ import Footer from '@/app/components/footer'
 
 const upload = () => {
   return (
-    <NavBar />
-    <Footer />
+    <div>
+        <NavBar />
+        <Footer />
+    </div>
   )
 }
 
