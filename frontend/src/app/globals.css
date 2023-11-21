@@ -71,6 +71,7 @@ svg path {
   left: 0px;
   box-shadow: var(--grey-color) 0px 1px 15px;
   background: var(--bg-color);
+  z-index: 1;
 }
 
 .right {
