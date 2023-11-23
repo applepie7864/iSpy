@@ -1,4 +1,1 @@
-# copy paste capture.py
-# load jsons
-# embed new model within existing code
-# display info
+# https://www.codemag.com/Article/2205081/Implementing-Face-Recognition-Using-Deep-Learning-and-Support-Vector-Machines

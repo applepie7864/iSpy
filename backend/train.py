@@ -1,14 +1,12 @@
+# function to train the model
 def train():
-    # for each person folder
-    # pull images from gcs
-    # store locally
-    # preprocess
+    """
+        :type: N/A
+        :rtype: N/A
+    """
+    # get images
     # https://www.codemag.com/Article/2205081/Implementing-Face-Recognition-Using-Deep-Learning-and-Support-Vector-Machines
-    # keras_vgg cnn retrain classification weights with extracted images
-    # transport hdf5 file to gcs
-    # update map json
-    # update label json
-    # upload jsons to gcs
+    # save temp_demo_recognizer.hdf5 to db
     return
 
 if __name__ == '__main__':

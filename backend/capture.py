@@ -1,34 +1,45 @@
 import cv2
+from database_interaction import upload
 
-# turn into function that takes image and recording boolean as input
+# applies additional preprocessing techniques on a cropped black and white numpy image
+def preprocess(image):
+    """
+        :type image: List[List[List[int]]] (numpy array)
+        :rtype: List[List[List[int]]] (numpy array)
+    """
+    # important: resize image to 224 x 224 pixels here
+    return image
 
-faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-cam = cv2.VideoCapture(0)
-
-while True:
-    ret, frame = cam.read()
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+# determines if numpy image contains a face, crops, preprocesses and uploads to gcs db
+def capture(name, image, num):
+    """
+        :type name: str
+              image: List[List[List[int]]] (numpy array)
+              num: int
+        :rtype: 0 (fail, no faces detected)
+                1 (success)
+                2 (fail, more than one face on screen)
+    """
+    faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    bw_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(
-        gray,     
+        bw_image,     
         scaleFactor=1.2,
         minNeighbors=5,     
         minSize=(20, 20)
     )
-
-    for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        
-    # add here:
-    # if recording
-    # save frame to gcs
-    # otherwise just display
-        
-    cv2.imshow('iSpy', frame)
     
-    # edit this so break when not on page upload
-    key = cv2.waitKey(30) & 0xff
-    if key == 27:
-        break
-
-cam.release()
-cv2.destroyAllWindows()
+    if len(faces) < 1:
+        return 0
+    elif len(faces) == 1:
+        x = faces[0][0]
+        y = faces[0][1]
+        w = faces[0][2]
+        h = faces[0][3]
+        cropped = image[y: y + h, x: x + w]
+        preprocessed = preprocess(cropped)
+        upload(name, preprocessed, num)
+        return 1
+    else:
+        return 2
+    
