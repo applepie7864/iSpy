@@ -1,15 +1,6 @@
 import cv2
 from database_interaction import upload
 
-# applies additional preprocessing techniques on a cropped black and white numpy image
-def preprocess(image):
-    """
-        :type image: List[List[List[int]]] (numpy array)
-        :rtype: List[List[List[int]]] (numpy array)
-    """
-    # important: resize image to 224 x 224 pixels here
-    return image
-
 # determines if numpy image contains a face, crops, preprocesses and uploads to gcs db
 def capture(name, image, num):
     """
@@ -37,9 +28,10 @@ def capture(name, image, num):
         w = faces[0][2]
         h = faces[0][3]
         cropped = image[y: y + h, x: x + w]
-        preprocessed = preprocess(cropped)
-        upload(name, preprocessed, num)
+        resized = cv2.resize(cropped, (224, 224))
+        # upload(name, resized, num)
         return 1
     else:
         return 2
-    
+
+capture("name", cv2.imread("in.jpg"), 1)
