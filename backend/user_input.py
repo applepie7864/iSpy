@@ -35,8 +35,7 @@ def main():
                     print("Invalid label provided.")
             
             # edit people.json
-            database_interaction.add_person(index, name)
-            database_interaction.add_label(index, label)
+            database_interaction.add_person(index, name, label)
             
             names.append(name)
             index += 1
@@ -77,7 +76,7 @@ def main():
         else:
             break
     
-    train.train()
-    shutil.rmtree("db/imgs")
+    # train.train()
+    # shutil.rmtree("db/imgs")
     
 main()

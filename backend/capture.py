@@ -29,9 +29,7 @@ def capture(name, image, num):
         h = faces[0][3]
         cropped = image[y: y + h, x: x + w]
         resized = cv2.resize(cropped, (224, 224))
-        # upload(name, resized, num)
+        upload(name, resized, num)
         return 1
     else:
         return 2
-
-capture("name", cv2.imread("in.jpg"), 1)
