@@ -1,25 +1,78 @@
-import os
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+from keras.applications import vgg16
+from keras.applications.mobilenet import preprocess_input
+from keras.layers import Dense, GlobalAveragePooling2D
+from keras.models import Model
+from keras.preprocessing.image import ImageDataGenerator
 
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications.mobilenet import preprocess_input
-
+# add final layers for recognition and customizes vgg16 model 
+def add_layers(base_model, num_classes):
+    """
+        :type base_model: VGG16
+              num_classes: int
+        :rtype: ?
+    """
+    model = base_model.output
+    model = GlobalAveragePooling2D()(model)
+    model = Dense(1024, activation='relu')(model)
+    model = Dense(1024, activation='relu')(model)
+    model = Dense(512, activation='relu')(model)
+    model = Dense(num_classes, activation='softmax')(model)
+    return model
 
 # function to train the model
 def train():
-    imgs = ImageDataGenerator(preprocessing_function=preprocess_input)
-    dataset = imgs.flow_from_directory('./db/imgs', target_size=(224,224), color_mode='rgb', batch_size=32, class_mode='categorical', shuffle=True)
-    
     """
         :type: N/A
         :rtype: N/A
     """
-    # get images
-    # https://www.codemag.com/Article/2205081/Implementing-Face-Recognition-Using-Deep-Learning-and-Support-Vector-Machines
-    # save temp_demo_recognizer.hdf5 to db
-    return
+    # edit
+    num_classes = 2
+    data_dir = '../test-images'
+    
+    datagen = ImageDataGenerator(
+        preprocessing_function=preprocess_input
+    )
+
+    data = datagen.flow_from_directory(
+        data_dir,
+        target_size = (224, 224),
+        color_mode = 'rgb',
+        batch_size = 32,
+        class_mode = 'categorical',
+        shuffle = True
+    )
+    
+    base_model = vgg16.VGG16(
+        include_top = False
+    )
+
+    custom = add_layers(base_model, num_classes)
+    model = Model(inputs = base_model.input, outputs = custom)
+    
+    index = 0
+    for layer in model.layers:
+        if index < 19:
+            layer.trainable = False
+        else:
+            layer.trainable = True
+    
+    model.compile(
+        optimizer = 'Adam',
+        loss = 'categorical_crossentropy',
+        metrics = ['accuracy']
+    )
+    
+    model.fit(
+        data,
+        batch_size = 1,
+        verbose = 1,
+        epochs = 20
+    )
+    
+    model.save(
+        "../test.h5"
+    )
+
 
 if __name__ == '__main__':
     train()

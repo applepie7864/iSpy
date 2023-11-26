@@ -16,11 +16,7 @@ Deactivate: conda deactivate
 
 Installations (connect to venv first and execute in venv):
 The version of Python we are using is Python 3.9
-pip install numpy
-pip install opencv-python
-pip install opencv-contrib-python
-pip install flask
-pip install pyautogui
+pip install numpy opencv-python opencv-contrib-python flask matplotlib pandas keras tensorflow
 
 Solving Git Conflicts:
 git fetch origin main
@@ -107,7 +103,9 @@ dist = sqrt(dist)
 - The closest histogram wins and also the distance can be used as a "confidence measurement"
 - We can then define a threshold for which the confidence measurement must reach and if it is reached, we have successfully recognized a face
 
-
+VGG16 Convolutional Neraul Network by Keras:
+VGG16 is a CNN that’s used for image recognition. It utilizes 16 layers with weights and is 
+considered one of the best vision model architectures to date. 
 
 
 
