@@ -2,6 +2,30 @@ import os
 import cv2
 import json
 
+def get_labels():
+    """
+        :type N/A
+        :rtype: dict
+    """
+    path = "db/labels.json"
+    with open(path, "r") as f:
+        json_data = json.load(f)
+    return json_data
+
+# writes the contents of dictionary in reverse to a designated file in the database
+def write_labels(dictionary):
+    """
+        :type dictionary: dict
+        :rtype: N/A
+    """
+    reverse = {}
+    for key, value in dictionary.items():
+        reverse[value] = key
+        
+    path = "db/labels.json"
+    with open(path, "w") as f:
+        json.dump(reverse, f, indent=4)
+
 # upload image to correct location in database
 def upload(name, image, num):
     """

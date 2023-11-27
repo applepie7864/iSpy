@@ -76,7 +76,6 @@ def main():
         else:
             break
     
-    # train.train()
-    # shutil.rmtree("db/imgs")
+    train.train()
     
 main()

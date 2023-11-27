@@ -3,13 +3,14 @@ from keras.applications.mobilenet import preprocess_input
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 from keras.preprocessing.image import ImageDataGenerator
+import database_interaction
 
 # add final layers for recognition and customizes vgg16 model 
 def add_layers(base_model, num_classes):
     """
         :type base_model: VGG16
               num_classes: int
-        :rtype: ?
+        :rtype: N/A
     """
     model = base_model.output
     model = GlobalAveragePooling2D()(model)
@@ -25,8 +26,8 @@ def train():
         :type: N/A
         :rtype: N/A
     """
-    # edit
-    num_classes = 2
+    # edit for gcs
+    num_classes = 2 # get num_ppl
     data_dir = '../test-images'
     
     datagen = ImageDataGenerator(
@@ -69,9 +70,8 @@ def train():
         epochs = 20
     )
     
-    model.save(
-        "../test.h5"
-    )
+    model.save('./model.h5')
+    database_interaction.write_labels(data.class_indices)
 
 
 if __name__ == '__main__':
