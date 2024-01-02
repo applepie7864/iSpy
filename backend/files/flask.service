@@ -1,0 +1,14 @@
+[Unit]
+Description=Flask Server
+After=network.target
+
+[Service]
+User=ispyuser
+Group=ispyuser
+WorkingDirectory=/home/ispyuser
+ExecStart=/usr/bin/gunicorn3 -b localhost:8000 --workers=3 app:app 
+Restart=always
+RestartSec=100
+
+[Install]
+WantedBy=multi-user.target

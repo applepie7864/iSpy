@@ -1,41 +1,45 @@
-For Later:
-frontend / backend connection
-https://medium.com/@jadomene99/integrating-your-opencv-project-into-a-react-component-using-flask-6bcf909c07f4
+VPS:
+brew install multipass
+ssh-keygen -C username -f multipass-ssh-key
+* edit cloud-init.yaml with your values
+multipass launch -n your_vm_name --cloud-init cloud-init.yaml
 
-Python Virtual Environment Commands using Anaconda:
-Creation:
-mkdir -p ~/miniconda3
-curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
-bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-rm -rf ~/miniconda3/miniconda.sh
-~/miniconda3/bin/conda init bash
-~/miniconda3/bin/conda init zsh
-conda create --name env python=3.9
-Activate: conda activate env
-Deactivate: conda deactivate
+Starting Flask Application with VPS:
+ssh username@vm_ip_addr_here -i multipass-ssh-key -o StrictHostKeyChecking=no
+sudo apt install nginx
+sudo apt install gunicorn3
+* transfer code files to vm's appropriate locations
+sudo systemctl daemon-reload
+sudo systemctl enable service_script_name
+sudo systemctl start/stop/status service_script_name
 
-Installations (connect to venv first and execute in venv):
-The version of Python we are using is Python 3.9
-pip install numpy opencv-python opencv-contrib-python flask matplotlib pandas keras tensorflow
+Installing Dependencies:
+sudo apt install python3-pip
+pip3 install -r requirements.txt
 
-Solving Git Conflicts:
-git fetch origin main
-git merge origin/main
-* resolve highlighted conflicts
-git add, commit, push
 
-Running the Program:
-python3 app.py
-Press the "ESC" key to exit
 
-How it Works:
-The first step we need to take in order to recognize an individual is to
-know when we are working with a face (facial detection). To do this we will be using
-a pre-trained frontal face HAAR Cascade Classifier supplied by OpenCV.
-Now to build on top of this base and not only recognize a face but an individual, we must gather our own dataset
-of the person to be identified. Using this dataset we will train our recognizer using the LBPH algorithm.
 
-Research:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<< Research Area >>
 - The smallest element of an image is called a pixel
 - Each pixel is represented numerically through RGB or grayscale
 - In the grayscale model, each pixel holds a single value representing
