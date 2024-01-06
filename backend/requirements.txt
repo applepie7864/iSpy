@@ -2,7 +2,8 @@ numpy
 opencv-python
 opencv-contrib-python
 flask
-matplotlib
 pandas
 keras
 tensorflow
+google-cloud
+pillow
