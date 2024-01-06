@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='webcam.css') }}" /> 
+    <title>iSpy</title>
+</head>
+<body>
+    <div class="webcam-container">
+        <img class="webcam" src="{{ url_for('video_feed') }}">
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template, Response
 import shutil
 from google.cloud import storage
 import os
@@ -7,7 +7,7 @@ import helpers
 import cv2
 from PIL import Image
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
 # Testing Endpoint.
 @app.route("/")
@@ -121,6 +121,14 @@ def add_images():
         os.remove("model.h5")
         helpers.edit_metadata(people_list) 
         return "Added images.", 201
+    
+@app.route('/webcam')
+def webcam():
+    return render_template('webcam.html')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(helpers.gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # http://192.168.64.3
 if __name__ == "__main__":

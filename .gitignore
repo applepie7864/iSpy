@@ -2,3 +2,4 @@ credentials.json
 tmp.jpg
 tmp.json
 backend/connect
+node_modules

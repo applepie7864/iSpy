@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div></div>
+    <div><a href="http://localhost:5000/webcam">Click Me</a></div>
   );
 }
 

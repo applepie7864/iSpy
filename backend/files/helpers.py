@@ -10,11 +10,64 @@ from keras.applications import vgg16
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.losses import SparseCategoricalCrossentropy
-from keras.models import Model
+from keras.models import Model, load_model
+from keras.preprocessing import image
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r'credentials.json'
 gcs = storage.Client()
 bucket = gcs.bucket("ispy-bucket")
+
+# generate frame by frame from camera
+def gen_frames():
+    """
+        :type n/a
+        :rtype: n/a
+    """
+    cam = cv2.VideoCapture(0)
+    blob = bucket.blob("model.h5")
+    blob.download_to_filename("model.h5")
+    blob = bucket.get_blob("metadata.json")
+    downloaded_json = json.loads(blob.download_as_text(encoding="utf-8"))
+    people = downloaded_json["people"]
+    model = load_model('model.h5') 
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    while True:
+        ret, frame = cam.read() 
+        frame = recognize_faces(frame, people, model, face_cascade)
+        if ret:
+            try:
+                ret, buffer = cv2.imencode('.jpg', cv2.flip(frame, 1))
+                frame = buffer.tobytes()
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            except Exception as e:
+                pass
+
+# recognizes faces and draws on frame
+def recognize_faces(frame, people, model, face_cascade):
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(grey, 1.15, 7)    
+    
+    if len(faces) != 0:
+        for x, y, w, h in faces:
+            face = frame[y: y + h, x: x + w]
+            resized = cv2.resize(face, (224, 224))
+            img = image.img_to_array(resized)
+            img /= 255
+            img = np.expand_dims(img, axis=0)
+            
+            prediction = model.predict(img)
+            num = prediction[0].argmax()
+            person = people[num]
+            person = " ".join(person.split("_"))
+            
+            color = (177, 132, 218)
+            font = cv2.FONT_HERSHEY_PLAIN
+            stroke = 5
+            cv2.rectangle(frame, (x, y), (x + w, y + h), color, stroke)
+            cv2.putText(frame, person, (x,y-5), font, 3.5, color, stroke, cv2.LINE_AA)
+    frame = cv2.flip(frame, 1)
+    return frame
 
 # detect face and resize and image
 def preprocess(file):
