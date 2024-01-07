@@ -57,11 +57,12 @@ def recognize_faces(frame, people, model, face_cascade):
             img = np.expand_dims(img, axis=0)
             
             prediction = model.predict(img)
+            print(prediction)
             num = prediction[0].argmax()
             person = people[num]
             person = " ".join(person.split("_"))
             
-            color = (177, 132, 218)
+            color = [4, 138, 202]
             font = cv2.FONT_HERSHEY_PLAIN
             stroke = 5
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, stroke)
@@ -263,3 +264,20 @@ def get_num_images(fname, lname):
     downloaded_json = json.loads(blob.download_as_text(encoding="utf-8"))
     num = downloaded_json["num_images"]
     return num
+
+# get all users in database and their corresponding metadata
+def get_all_users():
+    """
+        :type n/a
+        :rtype: Dict
+    """
+    blob = bucket.get_blob("metadata.json")
+    downloaded_json = json.loads(blob.download_as_text(encoding="utf-8"))
+    people = downloaded_json["people"]
+    data = []
+    for person in people:
+        name = " ".join(person.split("_"))
+        blob2 = bucket.get_blob(f"{person}/metadata.json")
+        downloaded_json2 = json.loads(blob2.download_as_text(encoding="utf-8"))
+        data.append(downloaded_json2) 
+    return data

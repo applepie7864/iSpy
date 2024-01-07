@@ -6,8 +6,11 @@ import json
 import helpers
 import cv2
 from PIL import Image
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Testing Endpoint.
 @app.route("/")
@@ -129,6 +132,12 @@ def webcam():
 @app.route('/video_feed')
 def video_feed():
     return Response(helpers.gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/all_users', methods=["GET"])
+@cross_origin()
+def all_users():
+    data = helpers.get_all_users()
+    return data, 200
 
 # http://192.168.64.3
 if __name__ == "__main__":
