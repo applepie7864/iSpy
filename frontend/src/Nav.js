@@ -10,7 +10,7 @@ const Nav = () => {
             <div className='c w-4/12 flex flex-row justify-between items-center'>
                 <div className='hover:text-gray-600'><Link to="/">Home</Link></div>
                 <div className='hover:text-gray-600'><Link to="/dataset">Dataset</Link></div>
-                <a className='hover:scale-105' href="http://localhost:5000/webcam"><Camera></Camera></a>
+                <a className='hover:scale-105' href="http://127.0.0.1:5000/webcam"><Camera></Camera></a>
             </div>
         </nav>
     )

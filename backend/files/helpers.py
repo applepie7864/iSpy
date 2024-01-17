@@ -68,7 +68,7 @@ def recognize_faces(frame, people, model, face_cascade):
             font = cv2.FONT_HERSHEY_PLAIN
             stroke = 5
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, stroke)
-            cv2.putText(frame, person, (x,y-5), font, 3.5, color, stroke, cv2.LINE_AA)
+            cv2.putText(frame, person, (x,y-5), font, 2.5, color, stroke, cv2.LINE_AA)
     frame = cv2.flip(frame, 1)
     return frame
 

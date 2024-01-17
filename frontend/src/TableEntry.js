@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Edit from './assets/Edit';
 
 const TableEntry = ( {person, id} ) => {
@@ -6,7 +6,6 @@ const TableEntry = ( {person, id} ) => {
     const name = person.fname + " " + person.lname;
     const [form, setForm] = useState(false)
     function editMode() {
-        var edit = document.getElementById(id);
         setForm(true);
     }
     const [formChanges, setFormChanges] = useState({});

@@ -7,7 +7,7 @@ const Dataset = () => {
     const [data, setData] = useState([]);
     const getData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/all_users');
+            const response = await axios.get('http://127.0.0.1:5000/all_users');
             setData(response.data);
         } catch (error) {
             console.error('There was a problem with the GET request:', error);
