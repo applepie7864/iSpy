@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, Response
+from flask import Flask, request, render_template, Response, redirect, url_for
 import shutil
 from google.cloud import storage
 import os
@@ -10,7 +10,6 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
 cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Testing Endpoint.
 @app.route("/")
@@ -32,18 +31,20 @@ def add_user():
         return "User already exists in the database.", 400
     else:
         count = 0
+        source = "processed_image.jpg"
         for image in images:
-            source = "processed_image.jpg"
             destination = f"{fname}_{lname}/images/{fname}_{lname}_{str(count)}.jpg"
             image = Image.open(image) 
-            image.save(source) 
+            rgb_image = image.convert('RGB')
+            rgb_image.save(source) 
             processed_npimg = helpers.preprocess(source)
             if processed_npimg is None:
                 continue
             cv2.imwrite(source, processed_npimg)
             helpers.upload_file(source, destination)
             count += 1
-        os.remove(source)
+        if count > 0:
+            os.remove(source)
         
         info = {}
         info["fname"] = fname
@@ -59,11 +60,7 @@ def add_user():
         helpers.upload_file(source, destination)
         os.remove(source)
         
-        people_list = helpers.train()
-        helpers.upload_file("model.h5", "model.h5")
-        os.remove("model.h5")
-        helpers.edit_metadata(people_list)    
-        return "Added new user!", 201
+        return redirect(url_for('train'))
 
 # Remove User Endpoint.
 @app.route("/remove_user", methods=['POST'])
@@ -75,10 +72,6 @@ def remove_user():
         return "User does not exist in the database.", 400
     else:
         helpers.delete_person_folder(fname, lname)
-        people_list = helpers.train()
-        helpers.upload_file("model.h5", "model.h5")
-        os.remove("model.h5")
-        helpers.edit_metadata(people_list) 
         return "User has been removed!", 201
 
 # Edit User Endpoint.
@@ -110,7 +103,8 @@ def add_images():
             source = "add_images.jpg"
             destination = f"{fname}_{lname}/images/{fname}_{lname}_{str(count)}.jpg"
             image = Image.open(image) 
-            image.save(source) 
+            rgb_image = image.convert('RGB')
+            rgb_image.save(source) 
             processed_npimg = helpers.preprocess(source)
             if processed_npimg is None:
                 continue
@@ -119,10 +113,6 @@ def add_images():
             count += 1
         os.remove(source)
         helpers.edit_user_field(fname, lname, "num_images", count)
-        people_list = helpers.train()
-        helpers.upload_file("model.h5", "model.h5")
-        os.remove("model.h5")
-        helpers.edit_metadata(people_list) 
         return "Added images.", 201
     
 @app.route('/webcam')
@@ -134,10 +124,19 @@ def video_feed():
     return Response(helpers.gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/all_users', methods=["GET"])
-@cross_origin()
 def all_users():
     data = helpers.get_all_users()
     return data, 200
+
+@app.route('/train', methods=["GET"])
+def train():
+    people_list = helpers.train()
+    if people_list is None:
+        return "No data available for training", 400
+    helpers.upload_file("model.h5", "model.h5")
+    os.remove("model.h5")
+    helpers.edit_metadata(people_list) 
+    return "Added user, training done, model updated.", 201
 
 # http://192.168.64.3
 if __name__ == "__main__":

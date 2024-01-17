@@ -13,6 +13,9 @@ sudo systemctl daemon-reload
 sudo systemctl enable service_script_name
 sudo systemctl start/stop/status service_script_name
 
+GCS:
+https://console.cloud.google.com/storage/browser/ispy-bucket;tab=objects?forceOnBucketsSortingFiltering=true&project=atomic-byway-410001&prefix=&forceOnObjectsSortingFiltering=false
+
 Installing Dependencies:
 sudo apt install python3-pip
 pip3 install -r requirements.txt

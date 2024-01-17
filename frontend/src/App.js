@@ -3,7 +3,7 @@ import Nav from "./Nav";
 import { Routes, Route } from "react-router-dom";
 import Home from './Home';
 import Dataset from './Dataset';
-import EditDB from './EditDB'
+import NewPerson from './NewPerson'
 
 function App() {
 	return (
@@ -12,7 +12,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={ <Home /> } />
 				<Route path="/dataset" element={ <Dataset /> } />
-				<Route path="/edit_db" element={ <EditDB /> } />
+				<Route path="/add_person" element={ <NewPerson /> } />
 			</Routes>
 		</div>
 	);

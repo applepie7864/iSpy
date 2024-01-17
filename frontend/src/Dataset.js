@@ -32,10 +32,10 @@ const Dataset = () => {
                         {data && data.map((person, id) => {
                             return <TableEntry person={person} id={id} />
                         })}
+                        <tr className='bg-gray-900 hover:bg-gray-950'>
+                            <td colSpan="6" className='px-6 py-0.5 text-center border-solid border-gray-900 border-2'><Link to='/add_person'>+</Link></td>
+                        </tr>
                     </tbody>
-                    <div className='w-14 text-center p-2 underline hover:no-underline cursor-pointer'>
-                        <Link to='/edit_db' state={ data }>Edit</Link>
-                    </div>
                 </table>
             </div>
         )
